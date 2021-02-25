@@ -1,47 +1,37 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture/config/configuration.dart';
-import 'package:flutter_architecture/presentation/home/home_route.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
+import 'package:welcome_demo/screens/splash/splash_screen.dart';
+import 'constan.dart';
+import 'package:flutter/services.dart';
 
-import 'generated/l10n.dart';
 
-/// EndPoint default
-void main() => Main();
 
-class Main extends Env {
-  @override
-  FutureOr<StatefulWidget> onCreate() {
-    ErrorWidget.builder = (FlutterErrorDetails details) {
-      Zone.current.handleUncaughtError(details.exception, details.stack);
-      return Container(color: Colors.transparent);
-    };
-
-    return Application();
-  }
+void main() {
+  runApp(MyApp());
 }
 
-class Application extends StatefulWidget {
-  @override
-  _ApplicationState createState() => _ApplicationState();
-}
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
 
-class _ApplicationState extends State<Application> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+
     return MaterialApp(
-      title: 'flutter architecture',
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        S.delegate,
-      ],
-      locale: const Locale('en'),
-      supportedLocales: S.delegate.supportedLocales,
-      initialRoute: HomeRoute.id,
-      onGenerateRoute: manifest,
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+
+          primaryColorLight: KPrimaryColor,
+          accentColor: KPrimaryColor,
+          primaryColor: KPrimaryColor,
+          primaryColorDark: KPrimaryColor,
+          scaffoldBackgroundColor: Colors.white,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          fontFamily: "Muli",
+          textTheme: TextTheme(bodyText1: TextStyle(color: kTextColor),
+                                bodyText2: TextStyle(color: kTextColor))),
+      home: SplashScreen(),
     );
   }
 }
